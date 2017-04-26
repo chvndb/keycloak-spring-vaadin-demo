@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  contextPath: /
+
+spring:
+  profiles: default
+
+keycloak:
+  realm: demo
+  resource: demo
+  auth-server-url: http://localhost:5050/auth
+  ssl-required: external
+  credentials:
+    secret: 460650c2-6b4a-4ef4-99cb-eef2b8664d2a
+  principal-attribute: email

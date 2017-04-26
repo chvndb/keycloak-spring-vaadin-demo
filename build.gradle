@@ -4,6 +4,9 @@ buildscript {
   ext.dependencyManagementVersion = "1.0.2.RELEASE"
   ext.springBootVersion = "1.5.3.RELEASE"
   ext.keycloakVersion = "3.0.0.Final"
+  ext.vaadinVersion = "8.0.1"
+  ext.vaadinSpringBootVersion = "2.0.1"
+  ext.vaadinSpringBootExtVersion = "2.0.0.RELEASE"
 
   ext.exec = { cmd ->
     cmd.execute().text.trim()
@@ -38,9 +41,33 @@ dependencies {
   compile "org.keycloak:keycloak-spring-boot-adapter:${keycloakVersion}"
   compile "org.keycloak:keycloak-tomcat8-adapter:${keycloakVersion}"
 
+  compile "com.vaadin:vaadin-themes:${vaadinVersion}"
+  compile "com.vaadin:vaadin-client-compiled:${vaadinVersion}"
+  compile "com.vaadin:vaadin-push:${vaadinVersion}"
+
+  compile "com.vaadin:vaadin-spring:${vaadinSpringBootVersion}"
+  compile "com.vaadin:vaadin-spring-boot:${vaadinSpringBootVersion}"
+  compile "com.vaadin:vaadin-spring-boot-starter:${vaadinSpringBootVersion}"
+
+  compile "org.vaadin.spring.extensions:vaadin-spring-ext-boot:${vaadinSpringBootExtVersion}"
+  compile "org.vaadin.spring.extensions:vaadin-spring-ext-core:${vaadinSpringBootExtVersion}"
+  compile "org.vaadin.spring.extensions:vaadin-spring-ext-security:${vaadinSpringBootExtVersion}"
+  compile "org.vaadin.spring.extensions:vaadin-spring-ext-test:${vaadinSpringBootExtVersion}"
+
+  compile "org.vaadin.spring.addons:vaadin-spring-addon-eventbus:${vaadinSpringBootExtVersion}"
+  compile "org.vaadin.spring.addons:vaadin-spring-addon-mvp:${vaadinSpringBootExtVersion}"
+  compile "org.vaadin.spring.addons:vaadin-spring-addon-sidebar:${vaadinSpringBootExtVersion}"
+  compile "org.vaadin.spring.addons:vaadin-spring-addon-i18n:${vaadinSpringBootExtVersion}"
+
   runtime "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
 
   testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+}
+
+dependencyManagement {
+  imports {
+    mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+  }
 }
 
 bootRun {
