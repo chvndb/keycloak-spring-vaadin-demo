@@ -5,6 +5,10 @@ buildscript {
   ext.springBootVersion = "1.5.3.RELEASE"
   ext.keycloakVersion = "3.0.0.Final"
 
+  ext.exec = { cmd ->
+    cmd.execute().text.trim()
+  }
+
   repositories {
     mavenCentral()
   }
@@ -41,4 +45,17 @@ dependencies {
 
 bootRun {
   addResources = true
+}
+
+task redeploy {}
+redeploy.dependsOn bootRun
+
+task stop {
+  doLast { exec("docker-compose -f src/main/docker/application.yml down") }
+}
+
+task start(dependsOn: stop) {
+  doFirst { exec("docker network add demo") }
+  doLast { exec("docker-compose -f src/main/docker/application.yml up -d") }
+  finalizedBy redeploy
 }
