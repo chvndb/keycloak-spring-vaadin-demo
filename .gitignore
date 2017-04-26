@@ -1,0 +1,34 @@
+## -- windows -- ##
+Thumbs.db
+Desktop.ini
+
+## -- osx -- ##
+.DS_Store
+.svn
+._*
+.Spotlight-V100
+.Trashes
+
+## -- other -- ##
+*.class
+*.*~
+*~
+.merge_file*
+
+## -- gradle -- ##
+.gradle
+build
+war
+
+## -- vscode -- ##
+.vscode
+
+## -- eclipse -- ##
+.classpath
+.project
+.settings
+.eclipse
+bin
+
+## -- project -- ##
+*.log
