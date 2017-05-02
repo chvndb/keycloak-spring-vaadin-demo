@@ -4,7 +4,7 @@ buildscript {
   ext.dependencyManagementVersion = "1.0.2.RELEASE"
   ext.springBootVersion = "1.5.3.RELEASE"
   ext.keycloakVersion = "3.0.0.Final"
-  ext.vaadinVersion = "8.0.1"
+  ext.vaadinVersion = "8.0.5"
   ext.vaadinSpringBootVersion = "2.0.1"
   ext.vaadinSpringBootExtVersion = "2.0.0.RELEASE"
 
@@ -34,20 +34,19 @@ repositories {
 }
 
 dependencies {
+  compile "org.springframework.boot:spring-boot-starter:${springBootVersion}"
   compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-  compile "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
 
   compile "org.keycloak:keycloak-spring-security-adapter:${keycloakVersion}"
   compile "org.keycloak:keycloak-spring-boot-adapter:${keycloakVersion}"
   compile "org.keycloak:keycloak-tomcat8-adapter:${keycloakVersion}"
 
-  compile "com.vaadin:vaadin-themes:${vaadinVersion}"
+  compile "com.vaadin:vaadin-server:${vaadinVersion}"
   compile "com.vaadin:vaadin-client-compiled:${vaadinVersion}"
+  compile "com.vaadin:vaadin-themes:${vaadinVersion}"
   compile "com.vaadin:vaadin-push:${vaadinVersion}"
 
-  compile "com.vaadin:vaadin-spring:${vaadinSpringBootVersion}"
   compile "com.vaadin:vaadin-spring-boot:${vaadinSpringBootVersion}"
-  compile "com.vaadin:vaadin-spring-boot-starter:${vaadinSpringBootVersion}"
 
   compile "org.vaadin.spring.extensions:vaadin-spring-ext-boot:${vaadinSpringBootExtVersion}"
   compile "org.vaadin.spring.extensions:vaadin-spring-ext-core:${vaadinSpringBootExtVersion}"
