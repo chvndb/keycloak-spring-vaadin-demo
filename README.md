@@ -4,7 +4,7 @@ Vaadin demo backed by Spring Boot (embedded Tomcat) and Keycloak.
 
 ### General
 
-A showcase on how a Vaadin application can be setup using Gradle, Spring Boot and secured with Keycloak. It is based on `https://github.com/peholmst/vaadin4spring/tree/master/samples/security-sample-shared`.
+A showcase on how a Vaadin application can be setup using Gradle, Spring Boot and secured with Keycloak. It is based on [security-sample-shared](https://github.com/peholmst/vaadin4spring/tree/master/samples/security-sample-shared).
 
 The main purpose of this demo is to understand the full build and configuration process to allow the different technologies to work together.
 
