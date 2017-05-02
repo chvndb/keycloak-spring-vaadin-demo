@@ -19,20 +19,16 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.vaadin.spring.http.HttpService;
 import org.vaadin.spring.security.annotation.EnableVaadinSharedSecurity;
 import org.vaadin.spring.security.config.VaadinSharedSecurityConfiguration;
-import org.vaadin.spring.security.shared.VaadinAuthenticationSuccessHandler;
 import org.vaadin.spring.security.shared.VaadinLogoutHandler;
 import org.vaadin.spring.security.shared.VaadinRedirectLogoutHandler;
-import org.vaadin.spring.security.shared.VaadinSessionClosingLogoutHandler;
-import org.vaadin.spring.security.shared.VaadinUrlAuthenticationSuccessHandler;
 import org.vaadin.spring.security.web.VaadinRedirectStrategy;
 
 @Configuration
 @EnableWebSecurity
 @EnableVaadinSharedSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true, proxyTargetClass = false)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true, proxyTargetClass = true)
 public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -53,7 +49,6 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
         .anyRequest().authenticated();
     http
         .logout()
-        .addLogoutHandler(new VaadinSessionClosingLogoutHandler())
         .addLogoutHandler(keycloakLogoutHandler())
         .logoutUrl("/sso/logout").permitAll()
         .logoutSuccessUrl("/");
@@ -111,11 +106,5 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
     VaadinRedirectLogoutHandler handler = new VaadinRedirectLogoutHandler(vaadinRedirectStrategy);
     handler.setLogoutUrl("sso/logout");
     return handler;
-  }
-
-  @Bean(name = VaadinSharedSecurityConfiguration.VAADIN_AUTHENTICATION_SUCCESS_HANDLER_BEAN)
-  VaadinAuthenticationSuccessHandler vaadinAuthenticationSuccessHandler(HttpService httpService,
-      VaadinRedirectStrategy vaadinRedirectStrategy) {
-    return new VaadinUrlAuthenticationSuccessHandler(httpService, vaadinRedirectStrategy, "/");
   }
 }
