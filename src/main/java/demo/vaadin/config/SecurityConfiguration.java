@@ -43,6 +43,7 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
   protected void configure(HttpSecurity http) throws Exception {
     http.httpBasic().disable();
     http.formLogin().disable();
+    http.anonymous().disable();
     http.csrf().disable();
     // http.csrf().requireCsrfProtectionMatcher(keycloakCsrfRequestMatcher());
     http
