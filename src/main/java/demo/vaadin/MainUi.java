@@ -8,10 +8,10 @@ import org.vaadin.spring.sidebar.components.ValoSideBar;
 import org.vaadin.spring.sidebar.security.VaadinSecurityItemFilter;
 
 import com.vaadin.annotations.Theme;
-import com.vaadin.navigator.Navigator;
 import com.vaadin.server.DefaultErrorHandler;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -30,6 +30,7 @@ public class MainUi extends UI {
   @Autowired VaadinSecurity vaadinSecurity;
   @Autowired SpringViewProvider springViewProvider;
   @Autowired ValoSideBar sideBar;
+  @Autowired SpringNavigator navigator;
 
   @Override
   protected void init(VaadinRequest request) {
@@ -58,7 +59,7 @@ public class MainUi extends UI {
     layout.addComponent(viewContainer);
     layout.setExpandRatio(viewContainer, 1f);
 
-    Navigator navigator = new Navigator(this, viewContainer);
+    navigator.init(this, viewContainer);
     // Without an AccessDeniedView, the view provider would act like the restricted views did not
     // exist at all.
     springViewProvider.setAccessDeniedViewClass(AccessDeniedView.class);
