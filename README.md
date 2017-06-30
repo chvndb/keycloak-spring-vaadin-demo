@@ -22,6 +22,10 @@ Clone the repository
 
     % cd keycloak-spring-vaadin-demo
 
+Create the demo docker network
+
+    % ./gradlew network
+
 Compile the source code, start the application server and deploy
 
     % ./gradlew start
