@@ -14,6 +14,10 @@ This demo has been tested with following dependencies:
 * Docker >= 17.03.1-ce
 * docker-compose >= 1.11.2
 
+### !! NOTE !!
+
+The `public-access` branch demonstrates how the setup can be configured to have a partially public application. In other words, parts of the application are accesible anonymously while other parts required a fully authenticated user.
+
 ### Build, Deploy and Configure
 
 Clone the repository
