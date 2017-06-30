@@ -76,12 +76,15 @@ bootRun {
 task redeploy {}
 redeploy.dependsOn bootRun
 
+task network() {
+  doLast { exec("docker network create demo") }
+}
+
 task stop {
   doLast { exec("docker-compose -f src/main/docker/application.yml down") }
 }
 
 task start(dependsOn: stop) {
-  doFirst { exec("docker network add demo") }
   doLast { exec("docker-compose -f src/main/docker/application.yml up -d") }
   finalizedBy redeploy
 }
