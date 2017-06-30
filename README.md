@@ -16,7 +16,7 @@ This demo has been tested with following dependencies:
 
 ### !! NOTE !!
 
-The `public-access` branch demonstrates how the setup can be configured to have a partially public application. In other words, parts of the application are accesible anonymously while other parts required a fully authenticated user.
+The [public-access](https://github.com/chvndb/keycloak-spring-vaadin-demo/tree/public-access) branch demonstrates how the setup can be configured to have a partially public application. In other words, parts of the application are accesible anonymously while other parts required a fully authenticated user.
 
 ### Build, Deploy and Configure
 
