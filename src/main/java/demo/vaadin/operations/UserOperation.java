@@ -1,10 +1,10 @@
 package demo.vaadin.operations;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.vaadin.spring.sidebar.annotation.FontAwesomeIcon;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
+import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
 
-import com.vaadin.server.FontAwesome;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Notification;
 
@@ -13,7 +13,7 @@ import demo.vaadin.backend.MyBackend;
 
 @SpringComponent
 @SideBarItem(sectionId = Sections.OPERATIONS, caption = "User operation", order = 0)
-@FontAwesomeIcon(FontAwesome.ANCHOR)
+@VaadinFontIcon(VaadinIcons.ANCHOR)
 public class UserOperation implements Runnable {
   private final MyBackend backend;
 

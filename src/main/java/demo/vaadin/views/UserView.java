@@ -2,12 +2,12 @@ package demo.vaadin.views;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.vaadin.spring.sidebar.annotation.FontAwesomeIcon;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
+import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
@@ -20,7 +20,7 @@ import demo.vaadin.backend.MyBackend;
 @Secured({"ROLE_USER", "ROLE_ADMIN"})
 @SpringView(name = "user")
 @SideBarItem(sectionId = Sections.VIEWS, caption = "User View")
-@FontAwesomeIcon(FontAwesome.ARCHIVE)
+@VaadinFontIcon(VaadinIcons.ARCHIVE)
 public class UserView extends CustomComponent implements View {
   private final MyBackend backend;
 
