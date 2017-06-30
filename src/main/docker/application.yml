@@ -27,6 +27,9 @@ services:
       - POSTGRES_PASSWORD=demo
     links:
       - postgres_keycloak:postgres
+    # volumes:
+    #   - ./keycloak/data:/data
+    # command: "-Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/data/keycloak.json -Dkeycloak.migration.realmName=demo"
 
 networks:
   default:
