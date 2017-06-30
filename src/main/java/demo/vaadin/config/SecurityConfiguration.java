@@ -39,14 +39,14 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
   protected void configure(HttpSecurity http) throws Exception {
     http.httpBasic().disable();
     http.formLogin().disable();
-    http.anonymous().disable();
+    // http.anonymous().disable();
     http.csrf().disable();
     // http.csrf().requireCsrfProtectionMatcher(keycloakCsrfRequestMatcher());
     http
         .authorizeRequests()
         .antMatchers("/vaadinServlet/UIDL/**").permitAll()
         .antMatchers("/vaadinServlet/HEARTBEAT/**").permitAll()
-        .anyRequest().authenticated();
+        .anyRequest().permitAll();
     http
         .logout()
         .addLogoutHandler(keycloakLogoutHandler())

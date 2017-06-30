@@ -1,6 +1,7 @@
 package demo.vaadin.operations;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.vaadin.spring.security.VaadinSecurity;
 import org.vaadin.spring.sidebar.annotation.SideBarItem;
 import org.vaadin.spring.sidebar.annotation.VaadinFontIcon;
@@ -11,8 +12,9 @@ import com.vaadin.spring.annotation.SpringComponent;
 import demo.vaadin.Sections;
 
 @SpringComponent
-@SideBarItem(sectionId = Sections.OPERATIONS, caption = "Logout")
+@SideBarItem(sectionId = Sections.AUTHENTICATION, caption = "Logout")
 @VaadinFontIcon(VaadinIcons.POWER_OFF)
+@Secured("ROLE_USER")
 public class LogoutOperation implements Runnable {
   private final VaadinSecurity vaadinSecurity;
 
