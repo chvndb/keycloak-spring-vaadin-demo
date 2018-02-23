@@ -7,14 +7,17 @@ import org.vaadin.spring.security.util.SecurityExceptionUtils;
 import org.vaadin.spring.sidebar.components.ValoSideBar;
 import org.vaadin.spring.sidebar.security.VaadinSecurityItemFilter;
 
+import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.DefaultErrorHandler;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.shared.ui.ui.Transport;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
@@ -23,6 +26,7 @@ import demo.vaadin.views.AccessDeniedView;
 import demo.vaadin.views.ErrorView;
 
 @SpringUI
+@Push(transport = Transport.LONG_POLLING)
 @Theme(ValoTheme.THEME_NAME)
 @SuppressWarnings("serial")
 public class MainUi extends UI {
@@ -31,6 +35,8 @@ public class MainUi extends UI {
   @Autowired SpringViewProvider springViewProvider;
   @Autowired ValoSideBar sideBar;
   @Autowired SpringNavigator navigator;
+
+  Label counter = new Label("0");
 
   @Override
   protected void init(VaadinRequest request) {
@@ -56,6 +62,8 @@ public class MainUi extends UI {
 
     CssLayout viewContainer = new CssLayout();
     viewContainer.setSizeFull();
+    layout.addComponent(counter);
+    layout.addComponent(viewContainer);
     layout.addComponent(viewContainer);
     layout.setExpandRatio(viewContainer, 1f);
 
@@ -69,5 +77,29 @@ public class MainUi extends UI {
 
     setContent(layout); // Call this here because the Navigator must have been configured before the
                         // Side Bar can be attached to a UI.
+
+    new FeederThread().start();
+  }
+
+  class FeederThread extends Thread {
+    int count = 0;
+
+    @Override
+    public void run() {
+      try {
+        while (count < 10) {
+          Thread.sleep(1000);
+          access(() -> {
+            counter.setValue("" + (Integer.valueOf(counter.getValue()) + 1));
+          });
+        }
+
+        access(() -> {
+          counter.setValue("done");
+        });
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }
