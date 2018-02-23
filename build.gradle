@@ -1,11 +1,11 @@
 buildscript {
   ext.javaVersion = 1.8
   ext.appVersion = "0.1.0-SNAPSHOT"
-  ext.dependencyManagementVersion = "1.0.2.RELEASE"
-  ext.springBootVersion = "1.5.3.RELEASE"
-  ext.keycloakVersion = "3.0.0.Final"
-  ext.vaadinVersion = "8.0.5"
-  ext.vaadinSpringBootVersion = "2.0.1"
+  ext.dependencyManagementVersion = "1.0.3.RELEASE"
+  ext.springBootVersion = "1.5.10.RELEASE"
+  ext.keycloakVersion = "3.4.3.Final"
+  ext.vaadinVersion = "8.3.1"
+  ext.vaadinSpringBootVersion = "3.0.0"
   ext.vaadinSpringBootExtVersion = "2.0.0.RELEASE"
 
   ext.exec = { cmd ->

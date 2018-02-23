@@ -2,7 +2,7 @@ version: "3"
 
 services:
   postgres_keycloak:
-    image: postgres:9.2-alpine
+    image: postgres:10.2-alpine
     container_name: demo_postgres_keycloak
     restart: unless-stopped
     ports:
@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=demo
 
   keycloak:
-    image: jboss/keycloak-postgres:3.0.0.Final
+    image: jboss/keycloak-postgres:3.4.3.Final
     container_name: demo_keycloak
     restart: unless-stopped
     ports:
