@@ -87,7 +87,7 @@ public class MainUi extends UI {
     @Override
     public void run() {
       try {
-        while (count < 10) {
+        while (count++ < 10) {
           Thread.sleep(1000);
           access(() -> {
             counter.setValue("" + (Integer.valueOf(counter.getValue()) + 1));
