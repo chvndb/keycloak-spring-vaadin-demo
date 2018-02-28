@@ -1,5 +1,7 @@
 package demo.vaadin.config;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
@@ -22,8 +24,12 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.vaadin.spring.security.annotation.EnableVaadinSharedSecurity;
 import org.vaadin.spring.security.config.VaadinSharedSecurityConfiguration;
 import org.vaadin.spring.security.shared.VaadinLogoutHandler;
-import org.vaadin.spring.security.shared.VaadinRedirectLogoutHandler;
-import org.vaadin.spring.security.web.VaadinRedirectStrategy;
+
+import com.vaadin.server.Page;
+import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinService;
+import com.vaadin.server.VaadinServletRequest;
+import com.vaadin.ui.UI;
 
 @Configuration
 @EnableWebSecurity
@@ -102,9 +108,19 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
   }
 
   @Bean(name = VaadinSharedSecurityConfiguration.VAADIN_LOGOUT_HANDLER_BEAN)
-  VaadinLogoutHandler vaadinLogoutHandler(VaadinRedirectStrategy vaadinRedirectStrategy) {
-    VaadinRedirectLogoutHandler handler = new VaadinRedirectLogoutHandler(vaadinRedirectStrategy);
-    handler.setLogoutUrl("sso/logout");
-    return handler;
+  VaadinLogoutHandler vaadinLogoutHandler(HttpServletRequest vaadinRedirectStrategy) {
+    return () -> {
+      try {
+        Page.getCurrent().setLocation("sso/logout");
+        UI.getCurrent().getSession().close();
+        UI.getCurrent().getSession().getSession().invalidate();
+        VaadinRequest vaadinRequest = VaadinService.getCurrentRequest();
+        VaadinServletRequest vaadinServletRequest = (VaadinServletRequest) vaadinRequest;
+        HttpServletRequest hsRequest = vaadinServletRequest.getHttpServletRequest();
+        hsRequest.logout();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    };
   }
 }
